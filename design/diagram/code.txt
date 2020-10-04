@@ -1,0 +1,42 @@
+@startuml
+class AlbumDataModel{
+ +String mbId
+ +String name
+ +String artist
+ +AlbumWikiDataModel wiki
+ +List<AlbumImageDataModel> images
+}
+
+class AlbumImageDataModel{
+ +String url
+ +AlbumDataImageSize size
+}
+
+class AlbumListDataModel{
+ +List<AlbumDataModel> album
+}
+
+class AlbumSearchResultDataModel{
+ +AlbumListDataModel albumMatches
+}
+
+class AlbumWikiDataModel{
+ +String published
+ +summary
+}
+
+class AlbumDataImageSize{
+ {field} medium
+ {field} small
+ {field} large
+ {field} extralarge
+ {field} mega
+ {field} UNKNOWN
+}
+
+AlbumDataImageSize *-- AlbumImageDataModel
+AlbumListDataModel *-- AlbumSearchResultDataModel
+AlbumDataModel o-- AlbumListDataModel
+AlbumWikiDataModel <|-- AlbumDataModel
+
+@enduml

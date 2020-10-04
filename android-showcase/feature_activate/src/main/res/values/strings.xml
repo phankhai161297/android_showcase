@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="data_not_found">Data not found</string>
+
+    <string name="title_1">Explore activities</string>
+    <string name="content_1">Explore trending activities in your location</string>
+
+    <string name="title_2">Inspire yourself</string>
+    <string name="content_2">Get Inspiration from popular users</string>
+
+    <string name="title_3">Find nearby</string>
+    <string name="content_3">Find interesting vendars close to you</string>
+</resources>

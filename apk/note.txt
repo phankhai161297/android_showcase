@@ -1,0 +1,2 @@
++) Path file APK
+android-showcase\app\build\outputs\apk\debug

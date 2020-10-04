@@ -1,0 +1,56 @@
+@startuml
+actor User
+participant Activity
+participant Fragment_Activate
+participant AdapterActivate
+participant AdapterActivate2
+participant AdapterActivate
+participant ActivateListViewModel
+participant GetAlbumListUseCase
+participant AlbumRepositoryImpl
+participant AlbumRetrofitService 
+database DB
+
+User -> Activity : open application
+Activity -> Fragment_Activate : click icon activate
+Fragment_Activate -> ActivateListViewModel : loaddata()
+ActivateListViewModel -> GetAlbumListUseCase: getAlbumlist()
+GetAlbumListUseCase -> C: processData()
+GetAlbumListUseCase -> AlbumRepositoryImpl: searchAlbum(pharse : String)
+AlbumRepositoryImpl -> AlbumRetrofitService : searchAlbumAsync(pharse : String)
+AlbumRetrofitService -> AlbumRetrofitService : searchAlbumAsync(pharse : String, limit : Int)
+AlbumRetrofitService -> DB: search(pharse : String, limit : Int)
+DB --> AlbumRetrofitService : SearchAlbumRespone
+AlbumRetrofitService --> AlbumRepositoryImpl: List<AlbumDomainModel>
+
+alt AlbumListLoadingSuccess
+AlbumRepositoryImpl --> GetAlbumListUseCase : return success
+
+alt List<AlbumDomainModel> != empty
+
+GetAlbumListUseCase --> ActivateListViewModel : List<AlbumDomainModel>
+ActivateListViewModel --> AdapterActivate : List<AlbumDomainModel>
+ActivateListViewModel --> AdapterActivate2 : List<AlbumDomainModel>
+AdapterActivate2  --> Fragment_Activate : update view
+AdapterActivate  --> Fragment_Activate : update view
+Fragment_Activate --> Activity: attack activity
+
+else List<AlbumDomainModel> == empty
+GetAlbumListUseCase --> ActivateListViewModel : List empty
+ActivateListViewModel --> AdapterActivate : List<AlbumDomainModel>
+ActivateListViewModel --> AdapterActivate2 : List<AlbumDomainModel>
+AdapterActivate2  --> Fragment_Activate : update view
+AdapterActivate  --> Fragment_Activate : update view
+Fragment_Activate --> Activity: attack activity
+
+end
+else AlbumListLoadingFailure
+AlbumRepositoryImpl --> GetAlbumListUseCase : return fail
+GetAlbumListUseCase --> ActivateListViewModel : list empty
+ActivateListViewModel  --> AdapterActivate : List<AlbumDomainModel>
+ActivateListViewModel --> AdapterActivate2 : List<AlbumDomainModel>
+AdapterActivate2  --> Fragment_Activate : update view
+AdapterActivate  --> Fragment_Activate : update view
+Fragment_Activate --> Activity: attack activity
+end
+@enduml

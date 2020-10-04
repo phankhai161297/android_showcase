@@ -1,0 +1,11 @@
++) Module feature_activate
+android-showcase\feature_activate\build\reports\tests\testDebugUnitTest\classes
+
++) Module feature_album
+android-showcase\feature_album\build\reports\tests\testDebugUnitTest\classes
+
++) Module feature_favourite
+android-showcase\feature_favourite\build\reports\tests\testDebugUnitTest\classes
+
++) Module feature_profile
+android-showcase\feature_profile\build\reports\tests\testDebugUnitTest\classes
